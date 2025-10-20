@@ -1,0 +1,7 @@
+fastapi[all]
+uvicorn
+PyGithub
+pandas
+nltk
+python-dotenv
+google-generativeai
