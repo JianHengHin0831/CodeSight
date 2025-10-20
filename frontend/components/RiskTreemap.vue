@@ -22,7 +22,6 @@ const initChart = () => {
   if (chartDom.value) {
     myChart = echarts.init(chartDom.value);
     myChart.on("click", (params) => {
-      // when a file block is clicked, emit the filename to parent
       if (params.data && params.data.filename) {
         emit("file-selected", params.data.filename);
       }

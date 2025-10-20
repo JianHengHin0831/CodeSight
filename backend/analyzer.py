@@ -3,7 +3,6 @@ import re
 import json
 import asyncio
 from collections import defaultdict
-from datetime import datetime, timezone 
 
 import pandas as pd
 import nltk
@@ -74,8 +73,6 @@ class RepoAnalyzer:
             if not client:
                 return {"filename": filename, "code": code, "review": [], "error": "OpenAI API Key not configured."}
             
-            # --- FIX 1: Make the prompt align with the response_format parameter ---
-            # We are now explicitly asking for a JSON object with an "issues" key.
             prompt = """
             You are an expert Senior Software Engineer. Your task is to perform a strict code review.
 
@@ -108,15 +105,12 @@ class RepoAnalyzer:
             if not response_content:
                 return {"filename": filename, "code": code, "review": [], "error": "AI returned an empty response."}
 
-            # --- FIX 3: Simplify the parsing logic to be direct and clear ---
-            # No more guessing. We expect a specific format and handle it.
+            # --- Simplify the parsing logic to be direct and clear ---
             try:
                 data = json.loads(response_content)
-                # Directly access the "issues" key. If it's not a list, it's an error.
                 if isinstance(data, dict) and isinstance(data.get("issues"), list):
                     review_result = data["issues"]
                 else:
-                    # This handles cases where the structure is wrong, even if it's valid JSON.
                     raise ValueError("The response JSON object does not contain a valid 'issues' list.")
 
                 return {"filename": filename, "code": code, "review": review_result, "error": None}
@@ -127,13 +121,11 @@ class RepoAnalyzer:
                 return {"filename": filename, "code": code, "review": [], "error": f"AI returned an invalid data structure. Details: {e}"}
             
         except RateLimitExceededException as e:
-            # This is a GitHub API exception, not OpenAI's
             return {"filename": filename, "code": "# Could not fetch content.", "review": [], "error": f"GitHub API rate limit exceeded: {e}"}
         except Exception as e:
             print(f"An unexpected error occurred during review for {filename}: {e}")
             return {"filename": filename, "code": "# Could not fetch file content.", "review": [], "error": str(e)}
 
-    # analyze collaboration metrics like PR merge times and review comments
     def _analyze_collaboration(self):
         print("Analyzing collaboration metrics...")
         try:

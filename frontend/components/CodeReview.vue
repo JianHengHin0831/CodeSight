@@ -13,7 +13,7 @@
     </div>
 
     <div v-else class="flex flex-col">
-      <!-- Code Panel (Full Width) -->
+      <!-- Code Panel-->
       <div
         ref="codePanel"
         class="bg-gray-900/50 overflow-auto max-h-[60vh] text-sm"
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <!-- Issues Panel (Full Width, Below Code) -->
+      <!-- Issues Panel -->
       <div class="p-4 space-y-4">
         <h4
           class="font-semibold text-lg text-gray-300 border-b border-gray-700 pb-2"
@@ -107,7 +107,7 @@ const normalizeStringForComparison = (str) => {
   return str.replace(/\s+/g, " ").trim();
 };
 
-// --- NEW: ROBUST SCROLLING LOGIC WITH TEXT MATCHING ---
+// ---  SCROLLING LOGIC WITH TEXT MATCHING ---
 const findAndScrollToIssue = async (issue) => {
   if (!codePanel.value) return;
 

@@ -1,5 +1,3 @@
-# backend/main.py
-
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -8,12 +6,9 @@ import traceback
 
 from analyzer import RepoAnalyzer
 
-# load environment variables from .env file 
 load_dotenv()
-
 app = FastAPI()
 
-# configure CORS middleware to allow frontend (http://localhost:3000) access
 origins = [
     "http://localhost:3000",
 ]
@@ -35,8 +30,8 @@ def read_root():
 @app.post("/analyze")
 async def analyze_repository(request: RepoRequest):
     """
-    接收 GitHub 仓库 URL, 执行完整的宏观和微观分析。
-    这是一个耗时较长的请求。
+    receive a GitHub repository URL and perform a full macro and micro analysis.
+    This is a longer-running request.
     """
     try:
         analyzer = RepoAnalyzer(repo_url=request.url)

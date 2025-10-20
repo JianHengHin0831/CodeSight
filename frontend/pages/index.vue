@@ -18,7 +18,6 @@
             placeholder="Paste link here, for example: https://github.com/vuejs/vue"
             class="w-full bg-transparent text-gray-200 placeholder-gray-500 focus:outline-none px-4"
           />
-          <!-- 修正了 :disabled 属性 -->
           <button
             @click="analyzeRepo"
             :disabled="isLoading"
@@ -40,7 +39,7 @@
           <p class="text-sm">{{ error }}</p>
         </div>
 
-        <!-- 2. Main Analysis Section (NEW TOP-DOWN LAYOUT) -->
+        <!-- 2. Main Analysis Section -->
         <div class="space-y-12">
           <!-- Section 2.1: Visualization -->
           <div class="space-y-4">
@@ -152,14 +151,8 @@ import { ref, computed, defineComponent } from "vue";
 import RiskTreemap from "~/components/RiskTreemap.vue";
 import CodeReview from "~/components/CodeReview.vue";
 
-const MetricCard = defineComponent({
-  props: ["title", "value"],
-  template: `
-    <div class="bg-gray-800 p-4 rounded-lg text-center shadow-lg">
-      <h3 class="text-gray-400 text-sm font-medium truncate">{{ title }}</h3>
-      <p class="text-xl font-semibold text-white truncate">{{ value }}</p>
-    </div>
-  `,
+useHead({
+  title: "CodeSight – AI Code Review & Technical Debt Insights",
 });
 
 const repoUrl = ref("https://github.com/JianHengHin0831/portfolio-website");
