@@ -15,7 +15,7 @@
             type="text"
             v-model="repoUrl"
             @keyup.enter="analyzeRepo"
-            placeholder="paste link here, for example: https://github.com/vuejs/vue"
+            placeholder="Paste link here, for example: https://github.com/vuejs/vue"
             class="w-full bg-transparent text-gray-200 placeholder-gray-500 focus:outline-none px-4"
           />
           <!-- 修正了 :disabled 属性 -->
